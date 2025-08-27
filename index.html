@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List App (ES6)</title>
+    <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+    <h1>Todo List</h1>
+    <div style="text-align:center; margin-bottom:20px;">
+        <input id="todo-input" type="text" placeholder="Add a todo" />
+        <select id="priority-select">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+        </select>
+        <button id="add-btn">Add</button>
+    </div>
+    <div style="text-align:center; margin-bottom:20px;">
+        <button id="filter-all">All</button>
+        <button id="filter-active">Active</button>
+        <button id="filter-completed">Completed</button>
+    </div>
+    <ul id="todo-list"></ul>
+    <script type="module" src="src/index.js"></script>
+</body>
+</html>
