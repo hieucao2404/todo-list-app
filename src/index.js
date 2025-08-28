@@ -24,6 +24,28 @@ const render = () => {
         <button data-id="${todo.id}" class= "toggle-btn">Toggle</button>
         <button data-id="${todo.id}" class="delete-btn">Delete</button>
         `;
+
+        if(todo.subtasks.length > 0){
+            const subtaskList = document.createElement('ul');
+            todo.subtasks.forEach(subtask => {
+                const subLi = document.createElement('li');
+                subLi.innerHTML = `
+                <span style="text-decoration:${subtask.completed ? 'line-through' : 'none'}">
+                ${subtask.text}
+                </span>
+                <button data-todo-id="${todo.id}" data-subtask-id="${subtask.id}" class="toggle-subtask-btn">Toggle</button>
+                <button data-todo-id="${todo.id}" data-subtask-id="${subtask.id}" class="delete-subtask-btn">Delete</button>
+                `;
+                subtaskList.appendChild(subLi);
+            });
+            li.appendChild(subtaskList);
+        }
+
+        li.innerHTML += `
+        <input type="text" class="subtask-input" placeholder="Add subtask" />
+        <button data-todo-id="${todo.id}" class="add-subtask-btn">Add Subtask</button>
+        `;
+
         ul.appendChild(li);
     });
 };
@@ -45,7 +67,42 @@ ul.addEventListener('click', e => {
         todoList.deleteTodo(Number(e.target.dataset.id));
         render();
     }
+
+    //add subtaskLisst
+    if(e.target.classList.contains('toggle-subtask-btn')){
+        const todoId =  Number(e.target.dataset.totoId);
+        const subtaskId =  Number(e.target.dataset.subtaskId);
+        const todo = todoList.todos.find(t => t.id === todoId);
+        if(todo){
+            todo.toggleSubtask(subtaskId);
+            render();
+        }
+    }
+
+    if(e.target.classList.contains('delete-subtask-btn')){
+        const todoId = Number(e.target.dataset.todoId);
+        const subtaskId = Number(e.target.dataset.subtaskId);
+        const todo = todoList.todos.find(t => t.id === todoId);
+        if(todo){
+            todo.deleteSubtask(subtaskId);
+            render();
+        }
+    }
+
+    if (e.target.classList.contains('add-subtask-btn')) {
+        const todoId = Number(e.target.dataset.todoId);
+        const todo = todoList.todos.find(t => t.id === todoId);
+        const input = e.target.previousElementSibling;
+        if (todo && input.value.trim()) {
+            todo.addSubtask(input.value.trim());
+            input.value = '';
+            render();
+        }
+    }
 });
+
+
+
 
 document.getElementById('filter-all').addEventListener('click', () => {
     todoList.setFilter('all');
