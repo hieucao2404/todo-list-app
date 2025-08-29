@@ -1,81 +1,175 @@
 body {
-    font-family: Arial, sans-serif;
-    background: #f7f7f7;
-    margin: 0;
-    padding: 0;
+  font-family: 'Segoe UI', 'Inter', 'Arial', sans-serif;
+  background: #f6f5f4;
+  color: #222;
+  margin: 0;
+  padding: 0;
 }
 
 h1 {
-    text-align: center;
-    color: #333;
+  text-align: center;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
 }
 
-#todo-input, #priority-select {
-    padding: 8px;
-    margin-right: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+#todo-input, #priority-select, .subtask-input, .edit-todo-input, .edit-subtask-input {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e3e2e0;
+  background: #fff;
+  font-size: 15px;
+  margin-right: 6px;
+  margin-bottom: 4px;
+  outline: none;
+  transition: border 0.2s;
 }
 
-#add-btn {
-    padding: 8px 16px;
-    border-radius: 4px;
-    border: none;
-    background: #007bff;
-    color: #fff;
-    cursor: pointer;
-}
-
-#add-btn:hover {
-    background: #0056b3;
+#todo-input:focus, #priority-select:focus, .subtask-input:focus, .edit-todo-input:focus, .edit-subtask-input:focus {
+  border: 1.5px solid #a3a1a0;
 }
 
 button {
-    margin: 2px;
-    padding: 4px 8px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #e3e2e0;
+  color: #222;
+  cursor: pointer;
+  margin: 2px 2px;
+  transition: background 0.2s;
 }
 
-#filter-all, #filter-active, #filter-completed {
-    background: #e0e0e0;
+button:hover {
+  background: #d1d0ce;
 }
 
 ul#todo-list {
-    list-style: none;
-    padding: 0;
-    max-width: 500px;
-    margin: 20px auto;
+  list-style: none;
+  padding: 0;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 li {
-    background: #fff;
-    margin-bottom: 8px;
-    padding: 12px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  background: #fff;
+  margin-bottom: 10px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(60,60,67,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.priority-low {
-    border-left: 6px solid #4caf50;
-}
-.priority-medium {
-    border-left: 6px solid #ff9800;
-}
-.priority-high {
-    border-left: 6px solid #f44336;
-}
+.priority-low { border-left: 4px solid #4caf50; }
+.priority-medium { border-left: 4px solid #ff9800; }
+.priority-high { border-left: 4px solid #f44336; }
 
 .todo-text {
-    flex: 1;
-    margin-right: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  display: inline-block;
 }
 
 .todo-priority {
-    font-weight: bold;
-    margin-right: 12px;
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.progress-bar-container {
+  margin: 4px 0;
+}
+
+.progress-bar {
+  background: #ececec;
+  border-radius: 4px;
+  height: 8px;
+  width: 100%;
+  margin-bottom: 2px;
+  overflow: hidden;
+}
+
+.progress-bar > div {
+  background: #4caf50;
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s;
+}
+
+.progress-label {
+  font-size: 11px;
+  color: #888;
+}
+
+.subtask-input, .edit-subtask-input {
+  width: 65%;
+  margin-top: 2px;
+}
+
+.checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 8px;
+}
+.checkbox-container input[type="checkbox"] {
+  display: none;
+}
+.checkmark {
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border: 2px solid #e3e2e0;
+  border-radius: 6px;
+  position: relative;
+  margin-right: 8px;
+}
+.checkbox-container input[type="checkbox"]:checked + .checkmark {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.checkbox-container input[type="checkbox"]:checked + .checkmark:after {
+  display: block;
+}
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 6px;
+  height: 12px;
+  border: solid #fff;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.subtask-checkbox .checkmark {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+.subtask-text {
+  font-size: 15px;
+  color: #555;
+  margin-left: 8px;
+  display: inline-block;
+}
+
+@media (max-width: 700px) {
+  ul#todo-list {
+    max-width: 98vw;
+  }
+  li {
+    padding: 8px 4px;
+  }
+  .todo-text {
+    font-size: 14px;
+  }
 }
